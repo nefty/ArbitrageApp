@@ -5,9 +5,20 @@ class FindOpportunitiesJob < ApplicationJob
   queue_as :default
 
   def perform()
+    api_key = ENV['EXCHANGERATE_API_KEY']
+    api_url = 'https://v6.exchangerate-api.com/v6/#{api_key}'
 
-    api_url = 'https://v6.exchangerate-api.com/v6/1098f03436a94e89a0844b1e'
+    get_currencies()
+    get_currency_pairs()
 
+    puts 'The FindOpportunitiesJob just executed! Hooray!'
+
+    # self.set(wait_until: Time.now + (60 * 60 * 24)).perform_later
+  end
+
+  private
+
+  def get_currencies()
     # If there is no currency in the database, GET the list of currencies from API
     unless BaseCurrency.find_by(code: 'USD')
       response = RestClient.get "#{api_url}/codes"
@@ -19,7 +30,9 @@ class FindOpportunitiesJob < ApplicationJob
         QuoteCurrency.create(name: currency_name, code: currency_code)
       end
     end
+  end
 
+  def get_currency_pairs()
     pairs_exist = CurrencyPair.find_by(base_currency: BaseCurrency.find_by(code: 'USD'),
                                 quote_currency: QuoteCurrency.find_by(code: 'GBP'))
     exchange = Exchange.first
@@ -37,9 +50,5 @@ class FindOpportunitiesJob < ApplicationJob
         end
       end
     end
-
-    puts 'The FindOpportunitiesJob just executed! Hooray!'
-    
-    # self.set(wait_until: Time.now + (60 * 60 * 24)).perform_later
   end
 end
