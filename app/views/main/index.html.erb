@@ -1,0 +1,18 @@
+<h1>Arbitrage</h1>
+<h2>Opportunities</h2>
+<ol class="card">
+  <% @opportunities.each do |opportunity| %>
+    <li class="card-body">
+      <p><%= opportunity.created_at %></p>
+      <ol class="list-group">
+        <% opportunity.trades.order(order: :asc).each do |trade| %>
+          <li class="list-group-item">
+            <%= Currency.find(trade.currency_pair.base_currency).code + ' -> ' %>
+            <%= Currency.find(trade.currency_pair.quote_currency).code + ': ' %> 
+            <%= trade.currency_pair.exchange_rate %> 
+          </li>
+        <% end %>
+      </ol>
+    </li>
+  <% end %>
+</ol>
