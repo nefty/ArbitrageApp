@@ -6,13 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-#Exchange.create(name: 'forex')
+Exchange.create(name: 'Forex')
 
-Currency.create([{ name: 'US Dollars', code: 'USD', exchange_id: 1 },
-                 { name: 'Great British Pounds', code: 'GBP', exchange_id: 1 }])
+BaseCurrency.create([{ name: 'US Dollars', code: 'USD' },
+                    { name: 'Great British Pounds', code: 'GBP' }])
 
-CurrencyPair.create([{base_currency: 1, quote_currency: 2, exchange_rate: 2, exchange: Exchange.find(1)},
-                     {base_currency: 2, quote_currency: 1, exchange_rate: 0.75, exchange: Exchange.find(1)}])
+QuoteCurrency.create([{ name: 'US Dollars', code: 'USD' },
+                    { name: 'Great British Pounds', code: 'GBP' }])
+
+CurrencyPair.create([{base_currency: BaseCurrency.find(1), quote_currency: QuoteCurrency.find(2), exchange_rate: 2, exchange: Exchange.find(1)},
+                     {base_currency: BaseCurrency.find(2), quote_currency: QuoteCurrency.find(1), exchange_rate: 0.75, exchange: Exchange.find(1)}])
 
 Opportunity.create()
 
