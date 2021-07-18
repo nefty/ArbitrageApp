@@ -25,6 +25,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Exchangerate API
 gem 'exchangerate-api'
 
+# Use REST Client
+gem 'rest-client', '~> 2.1'
+
 # JSON
 gem 'json'
 
