@@ -7,9 +7,9 @@
       <ol class="list-group">
         <% opportunity.trades.order(order: :asc).each do |trade| %>
           <li class="list-group-item">
-            <%= Currency.find(trade.currency_pair.base_currency).code + ' -> ' %>
-            <%= Currency.find(trade.currency_pair.quote_currency).code + ': ' %> 
-            <%= trade.currency_pair.exchange_rate %> 
+            <%= trade.currency_pair.base_currency.code + ' -> ' %>
+            <%= trade.currency_pair.quote_currency.code + ': ' %> 
+            <%= trade.currency_pair.exchange_rate %>
           </li>
         <% end %>
       </ol>
