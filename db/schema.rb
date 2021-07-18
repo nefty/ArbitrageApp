@@ -10,49 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_18_033610) do
+ActiveRecord::Schema.define(version: 2021_07_18_163246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "currencies", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
-    t.bigint "exchange_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["exchange_id"], name: "index_currencies_on_exchange_id"
-  end
-
-  create_table "currency_pairs", force: :cascade do |t|
-    t.bigint "base_currency"
-    t.bigint "quote_currency"
-    t.float "exchange_rate"
-    t.bigint "exchange_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["exchange_id"], name: "index_currency_pairs_on_exchange_id"
-  end
-
-  create_table "exchanges", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "opportunities", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "trades", force: :cascade do |t|
-    t.bigint "opportunity_id"
-    t.bigint "currency_pair_id"
-    t.integer "order"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["currency_pair_id"], name: "index_trades_on_currency_pair_id"
-    t.index ["opportunity_id"], name: "index_trades_on_opportunity_id"
-  end
 
 end
