@@ -1,19 +1,24 @@
-<h1>Arbitrage</h1>
-<h2>Opportunities</h2>
-<ol class="card">
-  <% @opportunities.each do |opportunity| %>
-    <li class="card-body">
-      <p><%= opportunity.created_at %></p>
-      <ol class="list-group">
-        <% opportunity.trades.order(order: :asc).each do |trade| %>
-          <li class="list-group-item">
-            <%= trade.currency_pair.base_currency.code + ' -> ' %>
-            <%= trade.currency_pair.quote_currency.code + ': ' %> 
-            <%= trade.currency_pair.exchange_rate %>
-          </li>
-        <% end %>
-      </ol>
-    </li>
-  <% end %>
-</ol>
-<% console %>
+<div class="m-5">
+  <h1 class="my-3">Arbitrage</h1>
+  <h2 class="my-3">Currencies</h2>
+  <%= link_to "See All Currencies", '/currencies', class: "btn btn-primary" %>
+
+  <h2 class="my-3">Opportunities</h2>
+  <ol class="card">
+    <% @opportunities.each do |opportunity| %>
+      <li class="card-body">
+        <p><%= opportunity.created_at %></p>
+        <ol class="list-group">
+          <% opportunity.trades.order(order: :asc).each do |trade| %>
+            <li class="list-group-item">
+              <%= trade.currency_pair.base_currency.code + ' -> ' %>
+              <%= trade.currency_pair.quote_currency.code + ': ' %>
+              <%= trade.currency_pair.exchange_rate %>
+            </li>
+          <% end %>
+        </ol>
+      </li>
+    <% end %>
+  </ol>
+  <% console %>
+</div>

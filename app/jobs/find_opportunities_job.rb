@@ -8,8 +8,8 @@ class FindOpportunitiesJob < ApplicationJob
     api_key = ENV["EXCHANGERATE_API_KEY"]
     api_url = "https://v6.exchangerate-api.com/v6/1098f03436a94e89a0844b1e"
 
-    # get_currencies(api_url)
-    # get_currency_pairs(api_url)
+    get_currencies(api_url)
+    get_currency_pairs(api_url)
 
     g = EdgeWeightedDigraph.new
 
@@ -21,7 +21,7 @@ class FindOpportunitiesJob < ApplicationJob
       stake = 1000.0
       puts "There are #{search.cycle.length} trades in this cycle"
       search.cycle.each_with_index do |currency_pair, index|
-        print "#{stake} #{currency_pair.base_currency.code} = " 
+        print "#{stake} #{currency_pair.base_currency.code} = "
         stake *= currency_pair.exchange_rate
         puts "#{stake} #{currency_pair.quote_currency.code}"
         currency_pair_object = CurrencyPair.find_by(base_currency: currency_pair.base_currency, quote_currency: QuoteCurrency.find(currency_pair.quote_currency.id))
@@ -73,7 +73,7 @@ class FindOpportunitiesJob < ApplicationJob
 
         # quote_currency = BaseCurrency.find(currency_pair.quote_currency.id)
         quote_currency = currency_pair.quote_currency
-        
+
         # puts "Quote Currency---"
         # puts quote_currency
 
@@ -82,7 +82,7 @@ class FindOpportunitiesJob < ApplicationJob
         if !@marked[quote_currency.id]
           # puts "#{quote_currency.code} not marked"
           @edge_to[quote_currency.id] = currency_pair
-          dfs(g, quote_currency)        
+          dfs(g, quote_currency)
         elsif @on_stack[quote_currency.id]
           @cycle = []
 
@@ -108,7 +108,7 @@ class FindOpportunitiesJob < ApplicationJob
 
     def initialize()
       @adj = {}
-      @currencies = BaseCurrency.all 
+      @currencies = BaseCurrency.all
       @currencies.each do |base_currency|
         currency_pairs = CurrencyPair.where(base_currency:base_currency)
         pair_list = []
@@ -144,7 +144,7 @@ class FindOpportunitiesJob < ApplicationJob
       @edge_to = {}
 
       # Distance of shortest source -> vertex path
-      @dist_to = {} 
+      @dist_to = {}
       g.currencies.each do |currency|
         @dist_to[currency.id] = Float::INFINITY
       end
