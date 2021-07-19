@@ -1,20 +1,20 @@
 <div class="m-5">
   <h1 class="my-3">Currencies</h1>
-
   <%= link_to 'Home', '/', class: "btn btn-primary mb-3" %>
 
-  <ul class="list-group">
-    <% @currencies.each do |currency| %>
-      <li class="list-group-item">
-        <h2 class="my-3"><%= currency.name %></h2>
-        <ul class="list-group">
-          <% currency_pairs.each do |currency_pair| %>
-            <li class="list-group-item">
-              <%= "#{currency_pair.quote_currency.name} : #{currency_pair.exchange_rate}" %>
-            </li>
-          <% end %>
-        </ul>
-      </li>
-    <% end %>
-  </ul>
+  <p>Click on a currency to see its exchange rates.</p>
+    <ul class="list-group">
+      <% @currencies.each do |currency| %>
+        <li class="list-group-item bg-secondary">
+          <h2 style="cursor: pointer;" class="my-3 currency text-white"><%= currency.name %></h2>
+          <ul class="list-group inner-list">
+            <% currency.currency_pairs.each do |currency_pair| %>
+              <li class="list-group-item">
+                <%= "#{currency_pair.quote_currency.name} : #{currency_pair.exchange_rate}" %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
 </div>
