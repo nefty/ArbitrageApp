@@ -8,11 +8,14 @@
         <li class="list-group-item bg-secondary">
           <h2 style="cursor: pointer;" class="my-3 currency text-white"><%= currency.name %></h2>
           <ul class="list-group inner-list">
+          <% cp = currency.currency_pairs %>
+          <% cache cp do %>
             <% currency.currency_pairs.each do |currency_pair| %>
               <li class="list-group-item">
                 <%= "#{currency_pair.quote_currency.name} : #{currency_pair.exchange_rate}" %>
               </li>
             <% end %>
+          <% end %>
           </ul>
         </li>
       <% end %>
