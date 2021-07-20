@@ -5,7 +5,7 @@ opportunities in a financial market where assets are traded with one another, e.
 [Forex](https://en.wikipedia.org/wiki/Foreign_exchange_market). This app is for
 learning purposes and is not suitable for real-world trading.
 
-It consumes currency exchange rates from [](https://www.exchangerate-api.com/)
+It consumes currency exchange rates from (https://www.exchangerate-api.com/)
 and builds an edge-weighted digraph where the currencies are vertices, and the
 edges are [currency pairs](https://en.wikipedia.org/wiki/Currency_pair) weighted
 by the exchange rate.
@@ -15,7 +15,7 @@ The idea was inspired by the arbitrage example in
 Kevin Wayne.
 
 Currently hosted at:
-[](http://arbitrage.brianeft.com:3000/)
+(http://arbitrage.brianeft.com:3000/)
 
 * Ruby version
 
